@@ -1,10 +1,20 @@
 const puppeteer = require("puppeteer");
+let page;
 console.log("before");
 
-let browserOpenpromise = puppeteer.launch();
+const browserOpenpromise = puppeteer.launch({ headless : false });
 
-browserOpenpromise.then(function (browser){
-    console.log("openned");
+ let pageArrpromise  = browserOpenpromise.then(function (browser){
+
+   const pageOpen =  browser.pages();
+   
+   return pageOpen;
+});
+
+pageArrpromise
+    .then(function(browserpages){
+    page  = browserpages[0];
+     page.goto("https://www.google.com/");
 });
 
 console.log("after");
